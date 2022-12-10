@@ -13,7 +13,7 @@ public class LinkedList {
         this.head = head;
     }
 
-    public void append(int val) {
+    public void add(int val) {
         if (head == null) {
             head = new ListNode(val);
             return;
@@ -24,6 +24,37 @@ public class LinkedList {
             current = current.next;
         }
         current.next = new ListNode(val);
+    }
+
+    public boolean contains(int val) {
+        if (head == null)
+            return false;
+
+        ListNode current = head;
+        while (current.next != null) {
+            if (current.val == val)
+                return true;
+            current = current.next;
+        }
+        return false;
+    }
+
+    public void remove(int val) {
+        if (head == null)
+            return;
+        if (head.val == val) {
+            head = head.next;
+            return;
+        }
+
+        ListNode current = head;
+        while (current.next != null) {
+            if (current.next.val == val) {
+                current.next = current.next.next;
+                return;
+            }
+            current = current.next;
+        }
     }
 
     /**
@@ -58,7 +89,9 @@ public class LinkedList {
         while (current.next != null) {
             if (current.next.val == val) {
                 current.next = current.next.next;
-            } else current = current.next;
+            } else  {
+                current = current.next;
+            }
         }
         return head.val == val ? head.next : head;
     }
