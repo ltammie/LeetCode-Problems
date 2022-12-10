@@ -1,5 +1,8 @@
 package com.ltammie.problems.solutions.linkedlist;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LinkedList {
     ListNode head;
 
@@ -76,6 +79,21 @@ public class LinkedList {
             fast = fast.next.next;
         }
         return slow;
+    }
+
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null)
+            return false;
+
+        Map<ListNode, Boolean> visitedNodes = new HashMap<>();
+        ListNode current = head;
+        while (current.next != null) {
+            if (visitedNodes.containsKey(current.next))
+                return true;
+            visitedNodes.put(current.next, true);
+            current = current.next;
+        }
+        return false;
     }
 
     public ListNode getHead() {
