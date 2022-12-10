@@ -1,4 +1,4 @@
-package com.ltammie.problems.solutions.reverselinkedlist;
+package com.ltammie.problems.solutions.linkedlist;
 
 public class ListNode {
     public int val;
