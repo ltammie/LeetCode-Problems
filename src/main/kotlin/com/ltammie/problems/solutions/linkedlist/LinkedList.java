@@ -1,9 +1,6 @@
 package com.ltammie.problems.solutions.linkedlist;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class LinkedList {
     ListNode head;
@@ -18,7 +15,7 @@ public class LinkedList {
 
     public void append(int val) {
         if (head == null) {
-            head = new  ListNode(val);
+            head = new ListNode(val);
             return;
         }
 
@@ -149,6 +146,31 @@ public class LinkedList {
                 current = current.next;
         }
         return head;
+    }
+
+    /**
+     * @No 234
+     */
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null)
+            return true;
+
+        Stack<Integer> stack = new Stack<>();
+
+        ListNode current = head;
+        while (current != null) {
+            stack.add(current.val);
+            current = current.next;
+        }
+
+        current = head;
+        while (current.next != null) {
+            int value = stack.pop();
+            if (value != current.val)
+                return false;
+            current = current.next;
+        }
+        return true;
     }
 
     public ListNode getHead() {
