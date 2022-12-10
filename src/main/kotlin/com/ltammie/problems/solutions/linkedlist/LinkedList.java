@@ -206,6 +206,22 @@ public class LinkedList {
         return true;
     }
 
+    /**
+     * @No 1290
+     * The most significant bit is at the head of the linked list.
+     * Each node's value is either 0 or 1.
+     */
+    public int getDecimalValue(ListNode head) {
+        ListNode current = reverseList(head);
+        int power = 0;
+        int res = 0;
+        while (current != null) {
+            res += current.val << power;
+            power++;
+            current = current.next;
+        }
+        return res;
+    }
     public ListNode getHead() {
         return head;
     }
