@@ -81,6 +81,9 @@ public class LinkedList {
         return slow;
     }
 
+    /**
+     * @No 141
+     */
     public boolean hasCycle(ListNode head) {
         if (head == null || head.next == null)
             return false;
@@ -94,6 +97,36 @@ public class LinkedList {
             current = current.next;
         }
         return false;
+    }
+
+    /**
+     * @No 21
+     * list are sorted in non-decreasing order
+     */
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode curr1 = list1;
+        ListNode curr2 = list2;
+        ListNode resultHead = new ListNode();
+        ListNode resultTail = resultHead;
+        while (true) {
+            if (curr1 == null) {
+                resultTail.next = curr2;
+                break;
+            }
+            if (curr2 == null) {
+                resultTail.next = curr1;
+                break;
+            }
+            if (curr1.val <= curr2.val) {
+                resultTail.next = curr1;
+                curr1 = curr1.next;
+            } else {
+                resultTail.next = curr2;
+                curr2 = curr2.next;
+            }
+            resultTail = resultTail.next;
+        }
+        return resultHead.next;
     }
 
     public ListNode getHead() {
