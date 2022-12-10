@@ -61,6 +61,22 @@ public class LinkedList {
         return head.val == val ? head.next : head;
     }
 
+    /**
+     * @No 876
+     * two pointer approach
+     */
+    public ListNode middleNode(ListNode head) {
+        if (head == null)
+            return null;
+
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
 
     public ListNode getHead() {
         return head;
