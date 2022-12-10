@@ -1,7 +1,9 @@
 package com.ltammie.problems.solutions.linkedlist;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class LinkedList {
     ListNode head;
@@ -127,6 +129,26 @@ public class LinkedList {
             resultTail = resultTail.next;
         }
         return resultHead.next;
+    }
+
+    /**
+     * @No 83
+     * The list is guaranteed to be sorted in ascending order.
+     */
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+
+        Set<Integer> uniqueValues = new HashSet<>();
+        ListNode current = head;
+        while (current.next != null) {
+            uniqueValues.add(current.val);
+            if (uniqueValues.contains(current.next.val))
+                current.next = current.next.next;
+            else
+                current = current.next;
+        }
+        return head;
     }
 
     public ListNode getHead() {
