@@ -1,5 +1,8 @@
 package com.ltammie.problems.solutions.arrays;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ArrayList {
 
     public ArrayList() {
@@ -34,5 +37,21 @@ public class ArrayList {
         int[] result = new int[digits.length + 1];
         result[0] = 1;
         return result;
+    }
+
+    /**
+     * @No 136
+     */
+    public int singleNumber(int[] nums) {
+        Map<Integer, Integer> occurrences = new HashMap<>();
+
+        for (int num : nums) {
+            if (occurrences.containsKey(num)) {
+                occurrences.remove(num);
+            } else {
+                occurrences.put(num, num);
+            }
+        }
+        return occurrences.keySet().iterator().next();
     }
 }
