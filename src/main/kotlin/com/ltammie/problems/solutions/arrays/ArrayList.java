@@ -54,4 +54,19 @@ public class ArrayList {
         }
         return occurrences.keySet().iterator().next();
     }
+
+    /**
+     * @No 26
+     * array is sorted in non-decreasing order
+     */
+    public int removeDuplicates(int[] nums) {
+        int slow = 0;
+        for (int fast = 0; fast < nums.length; fast++) {
+            if (nums[fast] != nums[slow]) {
+                nums[slow + 1] = nums[fast];
+                slow++;
+            }
+        }
+        return slow + 1;
+    }
 }
