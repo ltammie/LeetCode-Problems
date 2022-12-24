@@ -118,4 +118,15 @@ public class ArrayList {
         return array[array.length/2];
     }
 
+    /**
+     * @No 414
+     * Third Maximum Number
+     */
+    public int thirdMax(int[] nums) {
+        int[] distinct = Arrays.stream(nums).distinct().toArray();
+        Arrays.sort(distinct);
+        if (distinct.length < 3)
+            return distinct[distinct.length - 1];
+        return distinct[distinct.length - 3];
+    }
 }
