@@ -1,7 +1,6 @@
 package com.ltammie.problems.solutions.arrays;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ArrayList {
 
@@ -71,7 +70,7 @@ public class ArrayList {
     }
 
     /**
-     * 35
+     * @No 35
      * binary search
      */
     public int searchInsert(int[] nums, int target) {
@@ -91,4 +90,32 @@ public class ArrayList {
         }
         return low;
     }
+
+    /**
+     * @No 169
+     * majority element
+     * @algo hashmap to count occurrences
+     */
+    public int majorityElement(int[] array) {
+        Map<Integer, Integer> occurrences = new HashMap<>();
+
+        for (int num : array) {
+            if (occurrences.containsKey(num))
+                occurrences.replace(num, occurrences.get(num) + 1);
+            else occurrences.put(num, 1);
+        }
+
+        return Collections.max(occurrences.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
+    }
+
+    /**
+     * @No 169
+     * majority element
+     * @algo sorting and return element at array.length/2
+     */
+    public int majorityElementSort(int[] array) {
+        Arrays.sort(array);
+        return array[array.length/2];
+    }
+
 }
