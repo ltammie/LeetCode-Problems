@@ -187,4 +187,16 @@ public class ArrayList {
         return null;
     }
 
+    /**
+     * @No 1480
+     * Running Sum of 1d Array
+     */
+    public int[] runningSum(int[] nums) {
+        int currentSum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            currentSum += nums[i];
+            nums[i] = currentSum;
+        }
+        return nums;
+    }
 }
