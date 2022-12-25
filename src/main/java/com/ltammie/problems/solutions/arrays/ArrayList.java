@@ -160,9 +160,9 @@ public class ArrayList {
     }
 
     /**
-     * @param arr array to be searched
-     * @param low lower bound of the array
-     * @param high higher bound of the array
+     * @param arr    array to be searched
+     * @param low    lower bound of the array
+     * @param high   higher bound of the array
      * @param target number to be searched in the array
      * @return index of the found number of -1 if nothing found
      */
@@ -177,4 +177,14 @@ public class ArrayList {
         }
         return -1;
     }
+
+    /**
+     * @No 2099
+     * Find Subsequence of Length K With the Largest Sum
+     */
+    public int[] maxSubsequence(int[] nums, int k) {
+        //todo
+        return null;
+    }
+
 }
