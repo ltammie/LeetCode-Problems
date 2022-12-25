@@ -115,7 +115,7 @@ public class ArrayList {
      */
     public int majorityElementSort(int[] array) {
         Arrays.sort(array);
-        return array[array.length/2];
+        return array[array.length / 2];
     }
 
     /**
@@ -128,5 +128,53 @@ public class ArrayList {
         if (distinct.length < 3)
             return distinct[distinct.length - 1];
         return distinct[distinct.length - 3];
+    }
+
+    /**
+     * @No 1346
+     * 1346. Check If N and Its Double Exist
+     * @algo binarySearch
+     */
+    public boolean checkIfExist(int[] arr) {
+        Arrays.sort(arr);
+        int zeros = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) {
+                if (zeros == 2)
+                    return true;
+                zeros++;
+                continue;
+            }
+            int x = binarySearch(arr, 0, arr.length - 1, arr[i] * 2);
+            if (x != -1) {
+                if (x != i && arr[x] / 2 == arr[i])
+                    return true;
+            }
+            int y = binarySearch(arr, 0, arr.length - 1, arr[i] / 2);
+            if (y != -1) {
+                if (y != i && arr[y] * 2 == arr[i])
+                    return true;
+            }
+        }
+        return zeros == 2;
+    }
+
+    /**
+     * @param arr array to be searched
+     * @param low lower bound of the array
+     * @param high higher bound of the array
+     * @param target number to be searched in the array
+     * @return index of the found number of -1 if nothing found
+     */
+    public int binarySearch(int[] arr, int low, int high, int target) {
+        if (high >= low) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] == target)
+                return mid;
+            if (arr[mid] < target)
+                return binarySearch(arr, mid + 1, high, target);
+            return binarySearch(arr, low, mid - 1, target);
+        }
+        return -1;
     }
 }
