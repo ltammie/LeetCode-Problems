@@ -63,4 +63,53 @@ class ArrayListTest {
         assertTrue(array.checkIfExist(nums5));
         assertTrue(array.checkIfExist(nums6));
     }
+
+    @Test
+    void pivotIndex() {
+        ArrayList array = new ArrayList();
+        int[] nums1 = new int[]{1,7,3,6,5,6};
+        int[] nums2 = new int[]{1,2,3};
+        int[] nums3 = new int[]{2,1,-1};
+
+        assertEquals(3, array.pivotIndex(nums1));
+        assertEquals(-1, array.pivotIndex(nums2));
+        assertEquals(0, array.pivotIndex(nums3));
+    }
+
+    @Test
+    void sortedSquares() {
+        ArrayList array = new ArrayList();
+        int[] nums1 = new int[]{-4,-1,0,3,10};
+        int[] nums2 = new int[]{-7,-3,2,3,11};
+
+        assertArrayEquals(new int[]{0,1,9,16,100}, array.sortedSquares(nums1));
+        assertArrayEquals(new int[]{4,9,9,49,121}, array.sortedSquares(nums2));
+    }
+
+    @Test
+    void moveZeroes() {
+        ArrayList array = new ArrayList();
+        int[] nums1 = new int[]{5, 3, 0, 3, 4, 0, 2, 7, 0, 5};
+        int[] nums2 = new int[]{0,1,0,3,12};
+
+        array.moveZeroes(nums1);
+        array.moveZeroes(nums2);
+
+        assertArrayEquals(new int[]{5,3,3,4,2,7,5,0,0,0}, nums1);
+        assertArrayEquals(new int[]{1,3,12,0,0}, nums2);
+    }
+
+    @Test
+    void twoSum() {
+        ArrayList array = new ArrayList();
+        int[] nums1 = new int[]{2,7,11,15};
+        int[] nums2 = new int[]{2,3,4};
+        int[] nums3 = new int[]{-1,0};
+        int[] nums4 = new int[]{0,0,3,4};
+
+        assertArrayEquals(new int[]{1,2}, array.twoSum(nums1, 9));
+        assertArrayEquals(new int[]{1,3}, array.twoSum(nums2, 6));
+        assertArrayEquals(new int[]{1,2}, array.twoSum(nums3, -1));
+        assertArrayEquals(new int[]{1,2}, array.twoSum(nums4, 0));
+    }
 }
