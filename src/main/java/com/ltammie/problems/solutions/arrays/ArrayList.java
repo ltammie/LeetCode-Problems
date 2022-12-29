@@ -199,4 +199,105 @@ public class ArrayList {
         }
         return nums;
     }
+
+    /**
+     * @No 724
+     * Find Pivot Index
+     */
+    public int pivotIndex(int[] nums) {
+        int total = 0;
+        for (int num : nums) {
+            total += num;
+        }
+
+        int leftSum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (leftSum == total - leftSum - nums[i])
+                return i;
+            leftSum += nums[i];
+        }
+        return -1;
+    }
+
+    /**
+     * @No 977
+     * Squares of a Sorted Array
+     */
+    public int[] sortedSquares(int[] nums) {
+        int[] res = new int[nums.length];
+        int low = 0;
+        int high = nums.length - 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (Math.abs(nums[low]) >= Math.abs(nums[high])) {
+                res[i] = nums[low] * nums[low];
+                low++;
+            } else {
+                res[i] = nums[high] * nums[high];
+                high--;
+            }
+        }
+        return res;
+    }
+
+    /**
+     * @No 189
+     * Rotate Array
+     */
+    public void rotate(int[] nums, int k) {
+        k %= nums.length;
+        reverseArray(nums, 0, nums.length - 1);
+        reverseArray(nums, 0, k - 1);
+        reverseArray(nums, k, nums.length - 1);
+    }
+
+    /**
+     * @No 283
+     * Move zeroes to the end of the array
+     */
+    public void moveZeroes(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                for (int j = i; j < nums.length; j++) {
+                    if (nums[j] != 0) {
+                        nums[i] = nums[j];
+                        nums[j] = 0;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @No 167
+     * Two Sum II - Input Array Is Sorted
+     * @algo two-pointer
+     * if current sum is smaller than a target -> move closer to the right
+     * if current sum is higher than a target -> move closer to the left
+     */
+
+    public int[] twoSum(int[] numbers, int target) {
+        int left = 0;
+        int right = numbers.length - 1;
+
+        while (numbers[left] + numbers[right] != target) {
+            if (numbers[left] + numbers[right] < target)
+                left++;
+            else right--;
+        }
+
+        return new int[] {left+1, right+1};
+    }
+
+    private void reverseArray(int[] array, int start, int end) {
+        while (start < end) {
+            int tmp = array[start];
+            array[start] = array[end];
+            array[end] = tmp;
+            start++;
+            end--;
+        }
+    }
+
+
 }
