@@ -245,9 +245,9 @@ public class ArrayList {
      */
     public void rotate(int[] nums, int k) {
         k %= nums.length;
-        reverseArray(nums, 0, nums.length - 1);
-        reverseArray(nums, 0, k - 1);
-        reverseArray(nums, k, nums.length - 1);
+        reverse(nums, 0, nums.length - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, nums.length - 1);
     }
 
     /**
@@ -286,10 +286,204 @@ public class ArrayList {
             else right--;
         }
 
-        return new int[] {left+1, right+1};
+        return new int[]{left + 1, right + 1};
     }
 
-    private void reverseArray(int[] array, int start, int end) {
+    /**
+     * @No 344
+     * reverse a string
+     */
+    public void reverseString(char[] s) {
+        reverse(s, 0, s.length - 1);
+    }
+
+    /**
+     * @No 557
+     * reverse words in string
+     */
+    public String reverseWords(String s) {
+        if (s == null)
+            return null;
+        char[] chars = s.toCharArray();
+        int wordStartIndex = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == ' ') {
+                reverse(chars, wordStartIndex, i - 1);
+                wordStartIndex = i + 1;
+            }
+        }
+        //revers last word
+        reverse(chars, wordStartIndex, chars.length - 1);
+        return new String(chars);
+    }
+
+    /**
+     * @No 205
+     * @algo two maps
+     */
+
+    public boolean isIsomorphic(String s, String t) {
+        int[] mapST = new int[256];
+        int[] mapTS = new int[256];
+        Arrays.fill(mapST, -1);
+        Arrays.fill(mapTS, -1);
+
+        for (int i = 0; i < s.length(); i++) {
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
+            if (mapST[c1] == -1 && mapTS[c2] == -1) {
+                mapST[c1] = c2;
+                mapTS[c2] = c1;
+            } else if (!(mapST[c1] == c2 && mapTS[c2] == c1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @No 392
+     * @algo two pointers
+     */
+    public boolean isSubsequence(String s, String t) {
+        if (s.isEmpty())
+            return true;
+        if (t.isEmpty())
+            return false;
+        int j = 0;
+        for (int i = 0; i < t.length(); i++) {
+            if (t.charAt(i) == s.charAt(j)) {
+                j++;
+            }
+            if (j == s.length())
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * @No 121 Best Time to Buy and Sell Stock
+     * max sum
+     */
+    public int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+
+        for (int price : prices) {
+            if (price < minPrice)
+                minPrice = price;
+            else if (price - minPrice > maxProfit)
+                maxProfit = price - minPrice;
+        }
+        return maxProfit;
+    }
+
+    /**
+     * @No 409
+     */
+    public int longestPalindrome(String s) {
+        int[] pairs = new int[256];
+        int length = 0;
+        Arrays.fill(pairs, 0);
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            pairs[c]++;
+        }
+
+        for (int pair : pairs) {
+            length += pair / 2 * 2;
+            if (pair % 2 == 1 && length % 2 == 0)
+                length++;
+        }
+        return length;
+    }
+
+    /**
+     * Returns min element in the given range of the array or 0 if array is empty
+     *
+     * @param array
+     * @param start beginning of a range, inclusively
+     * @param end   end of a range, exclusively
+     * @return min
+     */
+    private int min(int[] array, int start, int end) {
+        if (array.length == 0)
+            return 0;
+        if (array.length == 1)
+            return array[0];
+
+        int min = array[start];
+        for (int i = start; i < end; i++) {
+            if (array[i] < min)
+                min = array[i];
+        }
+        return min;
+    }
+
+    /**
+     * Returns min element in the array or 0 if array is empty
+     *
+     * @param array
+     * @return min
+     */
+    private int min(int[] array) {
+        return min(array, 0, array.length);
+    }
+
+    /**
+     * Returns index of a min element in the array or -1 if array is empty
+     *
+     * @param array
+     * @return min index
+     */
+    private int minIndex(int[] array) {
+        if (array.length == 0)
+            return -1;
+
+        int minIndex = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] < array[minIndex])
+                minIndex = i;
+        }
+        return minIndex;
+    }
+
+    /**
+     * Returns max element in the given range of the array or 0 if array is empty
+     *
+     * @param array
+     * @param start beginning of a range, inclusively
+     * @param end   end of a range, exclusively
+     * @return max
+     */
+    private int max(int[] array, int start, int end) {
+        if (array.length == 0)
+            return 0;
+        if (array.length == 1)
+            return array[0];
+
+        int max = array[start];
+        for (int i = start; i < end; i++) {
+            if (array[i] > max)
+                max = array[i];
+        }
+        return max;
+    }
+
+    /**
+     * Returns max element in the array or 0 if array is empty
+     *
+     * @param array
+     * @return max
+     */
+    private int max(int[] array) {
+        return max(array, 0, array.length);
+    }
+
+    private void reverse(int[] array, int start, int end) {
+        if (array == null)
+            return;
         while (start < end) {
             int tmp = array[start];
             array[start] = array[end];
@@ -299,5 +493,15 @@ public class ArrayList {
         }
     }
 
-
+    private void reverse(char[] array, int start, int end) {
+        if (array == null)
+            return;
+        while (start < end) {
+            char tmp = array[start];
+            array[start] = array[end];
+            array[end] = tmp;
+            start++;
+            end--;
+        }
+    }
 }

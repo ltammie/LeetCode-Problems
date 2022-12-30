@@ -13,6 +13,10 @@ public class LinkedList {
         this.head = head;
     }
 
+    public ListNode getHead() {
+        return head;
+    }
+
     public void add(int val) {
         if (head == null) {
             head = new ListNode(val);
@@ -89,7 +93,7 @@ public class LinkedList {
         while (current.next != null) {
             if (current.next.val == val) {
                 current.next = current.next.next;
-            } else  {
+            } else {
                 current = current.next;
             }
         }
@@ -98,7 +102,7 @@ public class LinkedList {
 
     /**
      * @No 876
-     * two pointer approach
+     * @algo two pointer approach
      */
     public ListNode middleNode(ListNode head) {
         if (head == null)
@@ -129,6 +133,29 @@ public class LinkedList {
             current = current.next;
         }
         return false;
+    }
+
+    /**
+     * @No 142
+     * @algo two pointers
+     */
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (fast == slow) {
+                slow = head;
+                while (slow != fast) {
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow;
+            }
+        }
+        return null;
     }
 
     /**
@@ -222,7 +249,31 @@ public class LinkedList {
         }
         return res;
     }
-    public ListNode getHead() {
-        return head;
+
+    /**
+     * @No 19
+     * in one-pass
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if (head == null)
+            return null;
+        if (head.next == null && n > 0)
+            return null;
+
+        ListNode tmpHead = new ListNode(0);
+        tmpHead.next = head;
+        ListNode slow = tmpHead;
+        ListNode fast = tmpHead;
+        for (int i = 0; i <= n; i++) {
+            fast = fast.next;
+        }
+
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        slow.next = slow.next.next;
+        return tmpHead.next;
     }
 }
