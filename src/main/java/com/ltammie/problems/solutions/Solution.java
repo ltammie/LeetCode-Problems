@@ -1,5 +1,7 @@
 package com.ltammie.problems.solutions;
 
+import java.util.Arrays;
+
 public class Solution {
 
     /**
@@ -65,7 +67,7 @@ public class Solution {
 
     /**
      * @No 542 01 Matrix
-     * @alog dfs
+     * @algo dfs
      */
     public int[][] updateMatrix(int[][] mat) {
         int m = mat.length;
@@ -79,5 +81,31 @@ public class Solution {
         return mat;
     }
 
+    /**
+     * @No 1523
+     */
+    public int countOdds(int low, int high) {
+        int total = high - low + 1;
 
+        if (low % 2 == 1 && high % 2 == 1)
+            return total / 2 + 1;
+        return total / 2;
+    }
+
+    /**
+     * @No 1491
+     *
+     * @param salary : 3 <= salary.length <= 100
+     * Note:we can do it one pass without sorting the original array
+     * by keeping track of max and min values
+     */
+    public double average(int[] salary) {
+        int[] sorted = Arrays.stream(salary).sorted().toArray();
+
+        double average = 0;
+        for (int i = 1; i < sorted.length - 1; i++) {
+            average += sorted[i];
+        }
+        return average / (sorted.length - 2);
+    }
 }

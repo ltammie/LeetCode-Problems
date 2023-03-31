@@ -2,6 +2,7 @@ package com.ltammie.problems.solutions;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SolutionTest {
@@ -39,5 +40,27 @@ class SolutionTest {
         int[][] mat = {{0,0,0},{0,1,0},{1,1,1}};
         int[][] res = s.updateMatrix(mat);
         System.out.println();
+    }
+
+    @Test
+    void countOdds() {
+        Solution s = new Solution();
+        assertAll("",
+                () -> assertEquals(3, s.countOdds(3,7)),
+                () -> assertEquals(1, s.countOdds(8,10)),
+                () -> assertEquals(1, s.countOdds(9,10)),
+                () -> assertEquals(1, s.countOdds(9,9)),
+                () -> assertEquals(1, s.countOdds(0,1)),
+                () -> assertEquals(0, s.countOdds(2,2))
+        );
+    }
+
+    @Test
+    void average() {
+        Solution s = new Solution();
+        assertAll("",
+                () -> assertEquals(2500.00000, s.average(new int[] {4000,3000,1000,2000})),
+                () -> assertEquals(2000.00000, s.average(new int[] {1000, 2000, 3000}))
+        );
     }
 }
