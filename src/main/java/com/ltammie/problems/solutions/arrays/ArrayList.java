@@ -8,6 +8,43 @@ public class ArrayList {
     }
 
     /**
+     * @No 217
+     */
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> countSet = new HashSet<>();
+        for (int num : nums) {
+            if (!countSet.add(num))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * @No 53
+     */
+    public int maxSubArray(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return 0;
+        if (nums.length == 1)
+            return nums[0];
+
+        int current = 0;
+        int maxSum = Integer.MIN_VALUE;
+        for (int num : nums) {
+            current += num;
+            maxSum = Math.max(maxSum, current);
+
+            //discard negative max because addicting negatives
+            //does not make the result bigger
+            if (current < 0) {
+                current = 0;
+            }
+        }
+        return maxSum;
+    }
+
+
+    /**
      * @No 27
      * in-place removal
      */
