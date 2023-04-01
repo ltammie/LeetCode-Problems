@@ -108,4 +108,35 @@ public class Solution {
         }
         return average / (sorted.length - 2);
     }
+
+    /**
+     * @No 191
+     */
+    public int hammingWeight(int n) {
+        String number = Integer.toBinaryString(n);
+
+        int weight = 0;
+        for (int i = 0; i < number.length(); i++) {
+            if (number.charAt(i) == '1') {
+                weight++;
+            }
+        }
+        return weight;
+    }
+
+    /**
+     * @No 1281
+     */
+    public int subtractProductAndSum(int n) {
+        int product = 1;
+        int sum = 0;
+
+        while (n > 0) {
+            int digit = n % 10;
+            product *= digit;
+            sum += digit;
+            n /= 10;
+        }
+        return product - sum;
+    }
 }

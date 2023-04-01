@@ -2,6 +2,9 @@ package com.ltammie.problems.solutions.arrays;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ArrayListTest {
@@ -204,7 +207,48 @@ class ArrayListTest {
                 () -> assertEquals(6, array.maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4})),
                 () -> assertEquals(1, array.maxSubArray(new int[]{1})),
                 () -> assertEquals(23, array.maxSubArray(new int[]{5, 4, -1, 7, 8})),
-                () -> assertEquals(1, array.maxSubArray(new int[]{-2,1}))
+                () -> assertEquals(1, array.maxSubArray(new int[]{-2, 1}))
         );
+    }
+
+    @Test
+    void merge() {
+        ArrayList array = new ArrayList();
+
+        assertAll("",
+                () -> {
+                    int[] nums1 = new int[]{1, 2, 3, 0, 0, 0};
+                    array.merge(nums1, 3, new int[]{2, 5, 6}, 3);
+                    assertArrayEquals(new int[]{1, 2, 2, 3, 5, 6}, nums1);
+                },
+                () -> {
+                    int[] nums1 = new int[]{1};
+                    array.merge(nums1, 1, new int[]{}, 0);
+                    assertArrayEquals(new int[]{1}, nums1);
+                },
+                () -> {
+                    int[] nums1 = new int[]{0};
+                    array.merge(nums1, 0, new int[]{1}, 1);
+                    assertArrayEquals(new int[]{1}, nums1);
+                },
+                () -> {
+                    int[] nums1 = new int[]{1, 2, 4, 6, 7, 0, 0, 0, 0, 0};
+                    array.merge(nums1, 5, new int[]{3, 5, 8, 9, 10}, 5);
+                    assertArrayEquals(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, nums1);
+                }
+        );
+    }
+
+    @Test
+    void generate() {
+        ArrayList array = new ArrayList();
+        List<List<Integer>> expected = new LinkedList<>();
+        expected.add(List.of(1));
+        expected.add(List.of(1, 1));
+        expected.add(List.of(1, 2, 1));
+        expected.add(List.of(1, 3, 3, 1));
+        expected.add(List.of(1, 4, 6, 4, 1));
+
+        assertEquals(expected, array.generate(5));
     }
 }
