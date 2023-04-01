@@ -8,6 +8,62 @@ public class ArrayList {
     }
 
     /**
+     * @No 118 Pascal's Triangle
+     * In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+     * [1]
+     * [1,1]
+     * [1,2,1]
+     * [1,3,3,1]
+     * [1,4,6,4,1]
+     */
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> triangle = new LinkedList<>();
+
+        Integer[] lastRow = new Integer[0];
+        while (numRows > 0) {
+            Integer[] currentRow = new Integer[lastRow.length + 1];
+            int prev = 0;
+            for (int i = 0; i < lastRow.length; i++) {
+                currentRow[i] = lastRow[i] + prev;
+                prev = lastRow[i];
+            }
+            currentRow[currentRow.length - 1] = 1;
+            triangle.add(Arrays.asList(currentRow));
+            lastRow = currentRow;
+            numRows--;
+        }
+        return triangle;
+    }
+
+
+    /**
+     * @No 88
+     */
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int insertIndex = m + n - 1;
+        // substruct 1 from m and n to avoid IndexOutOfBoundsException when accessing last element of arrays
+        m--;
+        n--;
+
+        while (insertIndex >= 0 && m >= 0 && n >= 0) {
+            if (nums2[n] > nums1[m]) {
+                nums1[insertIndex] = nums2[n];
+                insertIndex--;
+                n--;
+            } else {
+                nums1[insertIndex] = nums1[m];
+                insertIndex--;
+                m--;
+            }
+        }
+        while (n >= 0) {
+            nums1[insertIndex] = nums2[n];
+            insertIndex--;
+            n--;
+        }
+    }
+
+    /**
      * @No 217
      */
     public boolean containsDuplicate(int[] nums) {

@@ -59,8 +59,27 @@ class SolutionTest {
     void average() {
         Solution s = new Solution();
         assertAll("",
-                () -> assertEquals(2500.00000, s.average(new int[] {4000,3000,1000,2000})),
-                () -> assertEquals(2000.00000, s.average(new int[] {1000, 2000, 3000}))
+                () -> assertEquals(2500.00000, s.average(new int[]{4000, 3000, 1000, 2000})),
+                () -> assertEquals(2000.00000, s.average(new int[]{1000, 2000, 3000}))
+        );
+    }
+
+    @Test
+    void hammingWeight() {
+        Solution s = new Solution();
+        assertAll("",
+                () -> assertEquals(3, s.hammingWeight(11)),
+                () -> assertEquals(1, s.hammingWeight(128)),
+                () -> assertEquals(31, s.hammingWeight(-3))
+        );
+    }
+
+    @Test
+    void subtractProductAndSum() {
+        Solution s = new Solution();
+        assertAll("",
+                () -> assertEquals(15, s.subtractProductAndSum(234)),
+                () -> assertEquals(21, s.subtractProductAndSum(4421))
         );
     }
 }
