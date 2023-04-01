@@ -8,6 +8,26 @@ public class ArrayList {
     }
 
     /**
+     * @No 1827. Minimum Operations to Make the Array Increasing
+     */
+    public int minOperations(int[] nums) {
+        if (nums.length == 1)
+            return 0;
+
+        int minOperations = 0;
+        int prev = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (prev >= nums[i]) {
+                minOperations += prev + 1 - nums[i];
+                prev++;
+            } else {
+                prev = nums[i];
+            }
+        }
+        return minOperations;
+    }
+
+    /**
      * @No 118 Pascal's Triangle
      * In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
      * [1]
@@ -774,6 +794,24 @@ public class ArrayList {
      */
     private int max(int[] array) {
         return max(array, 0, array.length);
+    }
+
+    /**
+     * Returns index of a max element in the array or -1 if array is empty
+     *
+     * @param array
+     * @return max index
+     */
+    private int maxIndex(int[] array) {
+        if (array.length == 0)
+            return -1;
+
+        int maxIndex = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] > array[maxIndex])
+                maxIndex = i;
+        }
+        return maxIndex;
     }
 
     private void reverse(int[] array, int start, int end) {

@@ -251,4 +251,16 @@ class ArrayListTest {
 
         assertEquals(expected, array.generate(5));
     }
+
+    @Test
+    void minOperations() {
+        ArrayList array = new ArrayList();
+
+        assertAll("",
+                () -> assertEquals(3, array.minOperations(new int[]{1, 1, 1})),
+                () -> assertEquals(14, array.minOperations(new int[]{1, 5, 2, 4, 1})),
+                () -> assertEquals(0, array.minOperations(new int[]{8})),
+                () -> assertEquals(19, array.minOperations(new int[]{1, 3, 7, 2, 8, 8, 1}))
+        );
+    }
 }

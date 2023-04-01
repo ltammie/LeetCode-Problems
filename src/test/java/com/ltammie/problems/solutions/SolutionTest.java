@@ -2,8 +2,7 @@ package com.ltammie.problems.solutions;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SolutionTest {
 
@@ -80,6 +79,38 @@ class SolutionTest {
         assertAll("",
                 () -> assertEquals(15, s.subtractProductAndSum(234)),
                 () -> assertEquals(21, s.subtractProductAndSum(4421))
+        );
+    }
+
+    @Test
+    void isValid() {
+        Solution s = new Solution();
+        assertAll("",
+                () -> assertTrue(s.isValid("()")),
+                () -> assertTrue(s.isValid("()[]{}")),
+                () -> assertFalse(s.isValid("(]")),
+                () -> assertTrue(s.isValid("([{}])")),
+                () -> assertFalse(s.isValid("([{}[)"))
+        );
+    }
+
+    @Test
+    void romanToInt() {
+        Solution s = new Solution();
+        assertAll("",
+                () -> assertEquals(3, s.romanToInt("III")),
+                () -> assertEquals(58, s.romanToInt("LVIII")),
+                () -> assertEquals(1994, s.romanToInt("MCMXCIV"))
+        );
+    }
+
+    @Test
+    void longestCommonPrefix() {
+        Solution s = new Solution();
+        assertAll("",
+                () -> assertEquals("fl", s.longestCommonPrefix(new String[]{"flower", "flow", "flight"})),
+                () -> assertEquals("", s.longestCommonPrefix(new String[]{"dog", "racecar", "car"})),
+                () -> assertEquals("a", s.longestCommonPrefix(new String[]{"a", "ac"}))
         );
     }
 }

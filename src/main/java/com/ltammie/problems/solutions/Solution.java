@@ -1,6 +1,7 @@
 package com.ltammie.problems.solutions;
 
 import java.util.Arrays;
+import java.util.Stack;
 
 public class Solution {
 
@@ -138,5 +139,100 @@ public class Solution {
             n /= 10;
         }
         return product - sum;
+    }
+
+    /**
+     * @No 20 Valid Parentheses
+     */
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(')
+                stack.push(')');
+            else if (s.charAt(i) == '{')
+                stack.push('}');
+            else if (s.charAt(i) == '[')
+                stack.push(']');
+            else if (stack.isEmpty() || stack.pop() != s.charAt(i))
+                return false;
+        }
+        return stack.isEmpty();
+    }
+
+    /**
+     * @No 13. Roman to Integer
+     * I -> V, X
+     * X -> L, C
+     * C -> D, M
+     */
+    public int romanToInt(String s) {
+        int res = 0;
+        s = s.replace("IV", "IIII")
+                .replace("IX", "VIIII")
+                .replace("XL", "XXXX")
+                .replace("XC", "LXXXX")
+                .replace("CD", "CCCC")
+                .replace("CM", "DCCCC");
+
+        int i = 0;
+        while (i < s.length()) {
+            char c = s.charAt(i);
+            if (c == 'M') {
+                res += 1000;
+            } else if (c == 'D') {
+                res += 500;
+            } else if (c == 'C') {
+                res += 100;
+            } else if (c == 'L') {
+                res += 50;
+            } else if (c == 'X') {
+                res += 10;
+            } else if (c == 'V') {
+                res += 5;
+            } else {
+                res += 1;
+            }
+            i++;
+        }
+        return res;
+    }
+
+    /**
+     * @No 14. Longest Common Prefix
+     */
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length == 1)
+            return strs[0];
+
+        if (strs[0].length() == 0)
+            return "";
+        char[] symbols = new char[strs[0].length()];
+        int[] count = new int[strs[0].length()];
+        for (int i = 0; i < symbols.length; i++) {
+            symbols[i] = strs[0].charAt(i);
+            count[i] = 1;
+        }
+
+        for (int i = 1; i < strs.length; i++) {
+            if (strs[i].length() == 0 || symbols[0] != strs[i].charAt(0))
+                return "";
+            for (int j = 0; j < strs[i].length(); j++) {
+                if (symbols.length == j)
+                    break;
+                if (symbols[j] == strs[i].charAt(j)) {
+                    count[j]++;
+                }
+            }
+        }
+
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] != count[0]) {
+                break;
+            }
+            s.append(symbols[i]);
+        }
+        return s.toString();
     }
 }
