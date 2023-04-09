@@ -2,9 +2,90 @@ package com.ltammie.problems.solutions.arrays;
 
 import java.util.*;
 
+import static java.lang.Math.abs;
+
 public class ArrayList {
 
     public ArrayList() {
+    }
+
+    /**
+     * @No 202. Happy Number
+     */
+    public boolean isHappy(int n) {
+        int slow = n;
+        int fast = getNextNumber(n);
+        while (fast != 1 && slow != fast) {
+            slow = getNextNumber(slow);
+            fast = getNextNumber(getNextNumber(fast));
+        }
+        return fast == 1;
+    }
+
+    /**
+     * @No 1502. Can Make Arithmetic Progression From Sequence
+     */
+    public boolean canMakeArithmeticProgression(int[] arr) {
+        Arrays.sort(arr);
+        int step = arr[1] - arr[0];
+
+        for (int i = 2; i < arr.length; i++) {
+            if (arr[i] - arr[i - 1] != step)
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * @No 1822. Sign of the Product of an Array
+     */
+    public int arraySign(int[] nums) {
+        double product = 1;
+
+        for (int i = 0; i < nums.length; i++) {
+            product *= nums[i];
+        }
+
+        if (product > 0)
+            return 1;
+        if (product < 0)
+            return -1;
+        return 0;
+    }
+
+    /**
+     * @No 1779. Find Nearest Point That Has the Same X or Y Coordinate
+     */
+    public int nearestValidPoint(int x, int y, int[][] points) {
+        int min = Integer.MAX_VALUE;
+        int index = -1;
+
+        for (int i = 0; i < points.length; i++) {
+            int x2 = points[i][0];
+            int y2 = points[i][1];
+            if (x2 == x || y2 == y) {
+                int distance = calculateManhattanDistance(x, y, x2, y2);
+                if (distance < min) {
+                    min = distance;
+                    index = i;
+                }
+            }
+        }
+        return index;
+    }
+
+    /**
+     * @No 976. Largest Perimeter Triangle
+     */
+    public int largestPerimeter(int[] nums) {
+        Arrays.sort(nums);
+
+        for (int i = nums.length - 1; i > 1; i--) {
+            if (validateTriangle(nums[i], nums[i - 1], nums[i - 2]))
+                return nums[i] + nums[i - 1] + nums[i - 2];
+
+        }
+        return 0;
     }
 
     /**
@@ -341,7 +422,7 @@ public class ArrayList {
         int low = 0;
         int high = nums.length - 1;
         for (int i = nums.length - 1; i >= 0; i--) {
-            if (Math.abs(nums[low]) >= Math.abs(nums[high])) {
+            if (abs(nums[low]) >= abs(nums[high])) {
                 res[i] = nums[low] * nums[low];
                 low++;
             } else {
@@ -534,8 +615,7 @@ public class ArrayList {
                     maxSize = Math.max(subSet.size(), maxSize);
                     subSet.clear();
                     break;
-                }
-                else {
+                } else {
                     subSet.add(s.charAt(i + j));
                     k++;
                 }
@@ -564,8 +644,7 @@ public class ArrayList {
 
     /**
      * @No 567 Permutation in String
-     * @algo
-     * s1 and s2 consist of lowercase English letters
+     * @algo s1 and s2 consist of lowercase English letters
      */
     public boolean checkInclusion(String s1, String s2) {
         if (s1.length() > s2.length())
@@ -838,6 +917,25 @@ public class ArrayList {
         }
     }
 
+    private boolean validateTriangle(int a, int b, int c) {
+        return (a + b > c) && (a + c > b) && (b + c > a);
+    }
+
+    private int calculateManhattanDistance(int x1, int y1, int x2, int y2) {
+        return abs(x1 - x2) + abs(y1 - y2);
+    }
+
+    private int getNextNumber(int n) {
+        int sum = 0;
+        while (n > 0) {
+            int remainder = n % 10;
+            sum += remainder * remainder;
+            n /= 10;
+        }
+        return sum;
+    }
+
+
     private class Pair {
         int x = 0;
         int y = 0;
@@ -858,4 +956,5 @@ public class ArrayList {
                     '}';
         }
     }
+
 }

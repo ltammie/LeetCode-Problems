@@ -156,6 +156,7 @@ class ArrayListTest {
         assertEquals(1, array.longestPalindrome("a"));
         assertEquals(1, array.longestPalindrome("ab"));
         assertEquals(3, array.longestPalindrome("abb"));
+        assertEquals(7, array.longestPalindrome("ccccddef"));
     }
 
     @Test
@@ -261,6 +262,27 @@ class ArrayListTest {
                 () -> assertEquals(14, array.minOperations(new int[]{1, 5, 2, 4, 1})),
                 () -> assertEquals(0, array.minOperations(new int[]{8})),
                 () -> assertEquals(19, array.minOperations(new int[]{1, 3, 7, 2, 8, 8, 1}))
+        );
+    }
+
+    @Test
+    void largestPerimeter() {
+        ArrayList array = new ArrayList();
+
+        assertAll("",
+                () -> assertEquals(5, array.largestPerimeter(new int[]{2, 1, 2})),
+                () -> assertEquals(0, array.largestPerimeter(new int[]{1, 2, 1, 10}))
+        );
+    }
+
+    @Test
+    void nearestValidPoint() {
+        ArrayList array = new ArrayList();
+
+        assertAll("",
+                () -> assertEquals(2, array.nearestValidPoint(3, 4, new int[][]{{1, 2}, {3, 1}, {2, 4}, {2, 3}, {4, 4}})),
+                () -> assertEquals(0, array.nearestValidPoint(3, 4, new int[][]{{3, 4}})),
+                () -> assertEquals(-1, array.nearestValidPoint(3, 4, new int[][]{{2, 3}}))
         );
     }
 }
