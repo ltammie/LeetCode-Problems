@@ -34,23 +34,15 @@ class SolutionTest {
     }
 
     @Test
-    void updateMatrix() {
-        Solution s = new Solution();
-        int[][] mat = {{0,0,0},{0,1,0},{1,1,1}};
-        int[][] res = s.updateMatrix(mat);
-        System.out.println();
-    }
-
-    @Test
     void countOdds() {
         Solution s = new Solution();
         assertAll("",
-                () -> assertEquals(3, s.countOdds(3,7)),
-                () -> assertEquals(1, s.countOdds(8,10)),
-                () -> assertEquals(1, s.countOdds(9,10)),
-                () -> assertEquals(1, s.countOdds(9,9)),
-                () -> assertEquals(1, s.countOdds(0,1)),
-                () -> assertEquals(0, s.countOdds(2,2))
+                () -> assertEquals(3, s.countOdds(3, 7)),
+                () -> assertEquals(1, s.countOdds(8, 10)),
+                () -> assertEquals(1, s.countOdds(9, 10)),
+                () -> assertEquals(1, s.countOdds(9, 9)),
+                () -> assertEquals(1, s.countOdds(0, 1)),
+                () -> assertEquals(0, s.countOdds(2, 2))
         );
     }
 
@@ -111,6 +103,37 @@ class SolutionTest {
                 () -> assertEquals("fl", s.longestCommonPrefix(new String[]{"flower", "flow", "flight"})),
                 () -> assertEquals("", s.longestCommonPrefix(new String[]{"dog", "racecar", "car"})),
                 () -> assertEquals("a", s.longestCommonPrefix(new String[]{"a", "ac"}))
+        );
+    }
+
+    @Test
+    void areAlmostEqual() {
+        Solution s = new Solution();
+        assertAll("",
+                () -> assertTrue(s.areAlmostEqual("bank", "kanb")),
+                () -> assertFalse(s.areAlmostEqual("abcd", "dcba")),
+                () -> assertFalse(s.areAlmostEqual("attack", "defend")),
+                () -> assertTrue(s.areAlmostEqual("kelb", "kelb")),
+                () -> assertTrue(s.areAlmostEqual("akrjnhuojtkhlqdfifwxbsmphhcchuqcconcvplcyxjpi", "akrjnhuojtkhlxdfifwqbsmphhcchuqcconcvplcyxjpi"))
+        );
+    }
+
+    @Test
+    void updateMatrix() {
+        Solution s = new Solution();
+        assertAll("",
+                () -> {
+                    int[][] mat = new int[][]{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}};
+                    assertArrayEquals(
+                            new int[][]{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}},
+                            s.updateMatrix(mat));
+                },
+                () -> {
+                    int[][] mat = new int[][]{{0, 0, 0}, {0, 1, 0}, {1, 1, 1}};
+                    assertArrayEquals(
+                            new int[][]{{0, 0, 0}, {0, 1, 0}, {1, 2, 1}},
+                            s.updateMatrix(mat));
+                }
         );
     }
 }

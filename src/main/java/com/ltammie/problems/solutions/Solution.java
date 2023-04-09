@@ -94,11 +94,10 @@ public class Solution {
     }
 
     /**
-     * @No 1491
-     *
      * @param salary : 3 <= salary.length <= 100
-     * Note:we can do it one pass without sorting the original array
-     * by keeping track of max and min values
+     *               Note:we can do it one pass without sorting the original array
+     *               by keeping track of max and min values
+     * @No 1491
      */
     public double average(int[] salary) {
         int[] sorted = Arrays.stream(salary).sorted().toArray();
@@ -234,5 +233,26 @@ public class Solution {
             s.append(symbols[i]);
         }
         return s.toString();
+    }
+
+    /**
+     * @No 1790. Check if One String Swap Can Make Strings Equal
+     */
+    public boolean areAlmostEqual(String s1, String s2) {
+        int[] s1Array = new int[26];
+        int[] s2Array = new int[26];
+
+        int missCount = 0;
+        for (int i = 0; i < s1.length(); i++) {
+            char s1Char = s1.charAt(i);
+            char s2Char = s2.charAt(i);
+            if (s1Char != s2Char)
+                missCount++;
+            if (missCount > 2)
+                return false;
+            s1Array[s1Char - 'a']++;
+            s2Array[s2Char - 'a']++;
+        }
+        return Arrays.equals(s1Array, s2Array);
     }
 }
