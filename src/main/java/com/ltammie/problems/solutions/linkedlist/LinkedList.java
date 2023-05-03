@@ -1,6 +1,8 @@
 package com.ltammie.problems.solutions.linkedlist;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
 
 public class LinkedList {
     ListNode head;
@@ -124,13 +126,13 @@ public class LinkedList {
         if (head == null || head.next == null)
             return false;
 
-        Map<ListNode, Boolean> visitedNodes = new HashMap<>();
-        ListNode current = head;
-        while (current.next != null) {
-            if (visitedNodes.containsKey(current.next))
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast)
                 return true;
-            visitedNodes.put(current.next, true);
-            current = current.next;
         }
         return false;
     }
@@ -275,5 +277,40 @@ public class LinkedList {
 
         slow.next = slow.next.next;
         return tmpHead.next;
+    }
+
+    /**
+     * @No 143. Reorder List
+     */
+    public void reorderList(ListNode head) {
+        if (head == null)
+            return;
+
+        // find middle node of the list to split in half
+        ListNode middle = middleNode(head);
+        // get the head of the second part of the list
+        ListNode midNext = middle.next;
+        // split list in half
+        middle.next = null;
+
+        // reverse the second half of the list
+        ListNode reversedHalf = reverseList(midNext);
+
+
+        ListNode part1 = head;
+        ListNode part2 = reversedHalf;
+        while (part1 != null && part2 != null) {
+            // save next element in part 1 of the list
+            ListNode tmp = part1.next;
+            part1.next = part2;
+
+            // save next element in part 2 of the list
+            ListNode tmp2 = part2.next;
+            part2.next = tmp;
+
+            // traverse both parts of the list further
+            part1 = tmp;
+            part2 = tmp2;
+        }
     }
 }
