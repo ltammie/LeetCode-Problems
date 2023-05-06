@@ -4,9 +4,142 @@ import java.util.*;
 
 import static java.lang.Math.abs;
 
-public class ArrayList {
+public class CustomArrayList {
 
-    public ArrayList() {
+    public CustomArrayList() {
+    }
+
+    /**
+     * @No 383. Ransom Note
+     */
+    public boolean canConstruct(String ransomNote, String magazine) {
+        int[] frequency = new int[26];
+        for (int i = 0; i < magazine.length(); i++) {
+            frequency[magazine.charAt(i) - 'a']++;
+        }
+
+        for (int i = 0; i < ransomNote.length(); i++) {
+            int pos = ransomNote.charAt(i) - 'a';
+            if (frequency[pos] - 1 < 0)
+                return false;
+            frequency[pos]--;
+        }
+        return true;
+    }
+
+    /**
+     * @No 15. 3Sum
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        if (nums.length == 0)
+            return Collections.emptyList();
+
+        Set<List<Integer>> res = new HashSet<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            int j = i + 1;
+            int k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == 0) {
+                    res.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    j++;
+                    k--;
+                } else if (sum > 0) {
+                    k--;
+                } else {
+                    j++;
+                }
+            }
+        }
+        return new ArrayList<>(res);
+    }
+
+    /**
+     * @No 153. Find Minimum in Rotated Sorted Array
+     */
+    public int findMin(int[] nums) {
+        int low = 0;
+        int high = nums.length - 1;
+        return findMinRec(nums, low, high);
+    }
+
+    private int findMinRec(int[] arr, int low, int high) {
+        if (arr[low] <= arr[high])
+            return arr[0];
+        int leftMin = 0;
+        int rightMin = 0;
+        if (high > low) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] > arr[mid + 1])
+                return arr[mid + 1];
+            if (arr[mid] < arr[mid - 1])
+                return arr[mid];
+            leftMin = findMinRec(arr, low, mid - 1);
+            rightMin = findMinRec(arr, mid + 1, high);
+            return Math.min(leftMin, rightMin);
+        }
+        return arr[low];
+    }
+
+    /**
+     * @No 238. Product of Array Except Self
+     * prefix product, suffix product
+     */
+    public int[] productExceptSelf(int[] nums) {
+        int[] ans = new int[nums.length];
+        int[] prefix = new int[nums.length];
+        int[] suffix = new int[nums.length];
+        Arrays.fill(prefix, 1);
+        Arrays.fill(suffix, 1);
+        for (int i = 1; i < nums.length; i++) {
+            prefix[i] *= prefix[i - 1] * nums[i - 1];
+        }
+        for (int i = nums.length - 2; i >= 0; i--) {
+            suffix[i] *= suffix[i + 1] * nums[i + 1];
+        }
+        for (int i = 0; i < nums.length; i++) {
+            ans[i] = prefix[i] * suffix[i];
+        }
+        return ans;
+    }
+
+
+    /**
+     * @No 2574. Left and Right Sum Differences
+     * prefix sum, suffix sum
+     */
+    public int[] leftRightDifference(int[] nums) {
+        if (nums.length == 1)
+            return new int[]{0};
+        int[] ans = new int[nums.length];
+        int[] prefix = new int[nums.length];
+        int[] suffix = new int[nums.length];
+        for (int i = 1; i < nums.length; i++) {
+            prefix[i] += prefix[i - 1] + nums[i - 1];
+        }
+        for (int i = nums.length - 2; i >= 0; i--) {
+            suffix[i] += suffix[i + 1] + nums[i + 1];
+        }
+        for (int i = 0; i < nums.length; i++) {
+            ans[i] = Math.abs(prefix[i] - suffix[i]);
+        }
+        return ans;
+    }
+
+    /**
+     * @No 1. Two Sum
+     * Always has one solution
+     */
+    public int[] twoSum1(int[] nums, int target) {
+        LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement))
+                return new int[]{i, map.get(complement)};
+            map.put(nums[i], i);
+        }
+        return new int[]{0, 1};
     }
 
     /**
