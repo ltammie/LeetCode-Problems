@@ -104,4 +104,26 @@ class StackSolutionsTest {
                 )
         );
     }
+
+    @Test
+    void findNextSmallerIndexes() {
+        StackSolutions solution = new StackSolutions();
+        assertAll("",
+                () -> assertArrayEquals(
+                        new int[]{1, 2, -1, 4, -1, -1, 7, 8, -1, -1},
+                        solution.findNextSmallerIndexes(new int[]{13, 8, 1, 5, 2, 5, 9, 7, 6, 12})
+                )
+        );
+    }
+
+    @Test
+    void findPreviousSmallerIndexes() {
+        StackSolutions solution = new StackSolutions();
+        assertAll("",
+                () -> assertArrayEquals(
+                        new int[]{-1, -1, -1, 2, 2, 4, 5, 5, 5, 8},
+                        solution.findPreviousSmallerIndexes(new int[]{13, 8, 1, 5, 2, 5, 9, 7, 6, 12})
+                )
+        );
+    }
 }
