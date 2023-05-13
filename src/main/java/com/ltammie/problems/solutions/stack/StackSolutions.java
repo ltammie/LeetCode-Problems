@@ -226,4 +226,34 @@ public class StackSolutions {
         }
         return pge;
     }
+
+    public int[] findNextSmallerIndexes(int[] numbers) {
+        Stack<Integer> stack = new Stack<>();
+        int[] nse = new int[numbers.length];
+        Arrays.fill(nse, -1);
+        for (int i = 0; i < numbers.length; i++) {
+            while (!stack.isEmpty() && numbers[stack.peek()] > numbers[i]) {
+                int top = stack.pop();
+                nse[top] = i;
+            }
+            stack.push(i);
+        }
+        return nse;
+    }
+
+    public int[] findPreviousSmallerIndexes(int[] numbers) {
+        Stack<Integer> stack = new Stack<>();
+        int[] pse = new int[numbers.length];
+        Arrays.fill(pse, -1);
+        for (int i = 0; i < numbers.length; i++) {
+            while (!stack.isEmpty() && numbers[stack.peek()] >= numbers[i]) {
+                stack.pop();
+            }
+            if (!stack.isEmpty()) {
+                pse[i] = stack.peek();
+            }
+            stack.push(i);
+        }
+        return pse;
+    }
 }
