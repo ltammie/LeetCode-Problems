@@ -319,6 +319,12 @@ public class BinaryTree {
         return root;
     }
 
+    private void swapChildren(TreeNode node) {
+        TreeNode tmp = node.left;
+        node.left = node.right;
+        node.right = tmp;
+    }
+
     /**
      * @No 100. Same Tree
      * @algo dfs
@@ -368,9 +374,86 @@ public class BinaryTree {
         return Math.max(maxWithRoot, root.val); // if root.val is bigger then the value of root + any subtree
     }
 
-    private void swapChildren(TreeNode node) {
-        TreeNode tmp = node.left;
-        node.left = node.right;
-        node.right = tmp;
+    /**
+     * @No 236. Lowest Common Ancestor of a Binary Tree
+     */
+    public TreeNode lowestCommonAncestorBT(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode res = new TreeNode();
+        lcaHelper(root, p, q, 0, res);
+        return res;
     }
+
+    private int lcaHelper(TreeNode root, TreeNode p, TreeNode q, int depth, TreeNode res) {
+        if (root == null)
+            return -1;
+
+        int depthLeft = lcaHelper(root.left, p, q, depth + 1, res);
+        int depthRight = lcaHelper(root.right, p, q, depth + 1, res);
+
+        if (depthLeft == -1 && depthRight == -1) {
+            if (root.val == p.val || root.val == q.val) {
+                return depth - 1;
+            }
+            return -1;
+        }
+
+        if (root.val == p.val || root.val == q.val || depthLeft == depthRight) {
+            res.val = root.val;
+        }
+        return Math.max(depthLeft, depthRight) - 1;
+    }
+
+    /**
+     * @No 199. Binary Tree Right Side View
+     * @algo level order traversal
+     */
+    public List<Integer> rightSideView(TreeNode root) {
+        if (root == null)
+            return Collections.emptyList();
+
+        List<Integer> ans = new LinkedList<>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            TreeNode last = new TreeNode();
+            for (int i = 0; i < size; i++) {
+                last = queue.poll();
+                if (last.left != null)
+                    queue.offer(last.left);
+                if (last.right != null)
+                    queue.offer(last.right);
+            }
+            ans.add(last.val);
+        }
+        return ans;
+    }
+
+    /**
+     * @No 572. Subtree of Another Tree
+     */
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (root == null)
+            return false;
+
+        if (isSameTree(root, subRoot))
+            return true;
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    public TreeNode findNodeInBinaryTree(TreeNode root, TreeNode target) {
+        if (root == null)
+            return null;
+
+        if (root.val == target.val)
+            return root;
+
+        TreeNode left = findNodeInBinaryTree(root.left, target);
+        TreeNode right = findNodeInBinaryTree(root.right, target);
+
+        if (left != null)
+            return left;
+        return right;
+    }
+
 }
