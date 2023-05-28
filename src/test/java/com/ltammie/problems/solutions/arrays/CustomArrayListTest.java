@@ -369,4 +369,11 @@ class CustomArrayListTest {
                 () -> assertTrue(array.canConstruct("aa", "aab"))
         );
     }
+
+    @Test
+    void topKFrequent() {
+        CustomArrayList array = new CustomArrayList();
+
+        array.topKFrequent(new int[]{1, 1, 1, 2, 2, 3}, 2);
+    }
 }

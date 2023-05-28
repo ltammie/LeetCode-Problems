@@ -10,6 +10,71 @@ public class CustomArrayList {
     }
 
     /**
+     * @No 973. K Closest Points to Origin
+     * @algo heap
+     */
+    public int[][] kClosest(int[][] points, int k) {
+        if (k == points.length)
+            return points;
+        PriorityQueue<Integer> pq = new PriorityQueue<>(
+                (index1, index2) -> {
+                    double dist1 = Math.sqrt(points[index1][0] * points[index1][0] + points[index1][1] * points[index1][1]);
+                    double dist2 = Math.sqrt(points[index2][0] * points[index2][0] + points[index2][1] * points[index2][1]);
+                    double diff = dist1 - dist2;
+                    if (diff > 0)
+                        return -1;
+                    else if (diff < 0)
+                        return 1;
+                    return 0;
+                }
+        );
+
+        for (int i = 0; i < points.length; i++) {
+            pq.offer(i);
+            if (pq.size() > k)
+                pq.poll();
+        }
+        int[][] ans = new int[k][2];
+        for (int i = k - 1; i >= 0; i--) {
+            int index = pq.poll();
+            ans[i][0] = points[index][0];
+            ans[i][1] = points[index][1];
+        }
+        ;
+        return ans;
+    }
+
+
+    /**
+     * @No 347. Top K Frequent Elements
+     * @algo heap
+     */
+    public int[] topKFrequent(int[] nums, int k) {
+        if (k == nums.length) {
+            return nums;
+        }
+        HashMap<Integer, Integer> freq = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (freq.containsKey(nums[i])) {
+                freq.put(nums[i], freq.get(nums[i]) + 1);
+            } else freq.put(nums[i], 1);
+        }
+        PriorityQueue<Integer> pq = new PriorityQueue<>((o1, o2) ->
+                freq.get(o1) - freq.get(o2)
+        );
+        for (int key : freq.keySet()) {
+            pq.offer(key);
+            if (pq.size() > k)
+                pq.poll();
+        }
+        int[] ans = new int[k];
+        for (int i = k - 1; i >= 0; i--) {
+            ans[i] = pq.poll();
+        }
+        return ans;
+    }
+
+    /**
      * @No 383. Ransom Note
      */
     public boolean canConstruct(String ransomNote, String magazine) {
