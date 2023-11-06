@@ -1,5 +1,9 @@
 package com.ltammie.problems
 
-fun main() {
+import com.ltammie.problems.blind75.GroupAnagram
 
+fun main() {
+    val s = GroupAnagram();
+    val strs = arrayOf("eat", "tea", "tan", "ate", "nat", "bat")
+    s.groupAnagramsFast(strs)
 }
